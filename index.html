@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator made by krishna</title>
+</head>
+<style>
+    table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+    <h1>name :- krishna chaudhari  </h1>
+    <h1>SId :- s223751702 </h1>
+    <br><br> <br>
+    <table style="width:100%">
+            <tr>
+                <th> <h2>Simple Calculator </h2></th>
+            </tr>
+    </table>
+    
+  
+                
+                <input type="number" id="num1" placeholder="Enter first number">
+               <input type="number" id="num2" placeholder="Enter second number">
+        
+
+                <select id="operation">
+                    <option value="add">+</option>
+                    <option value="subtract">-</option>
+                    <option value="multiply">×</option>
+                    <option value="divide">÷</option>
+                     </select>
+           
+             <button onclick="calculate()">Calculate</button>
+            
+        
+            <h3>Result: <span id="result"></span></h3>
+   
+    <script>
+        function calculate() {
+            const num1 = document.getElementById("num1").value;
+            const num2 = document.getElementById("num2").value;
+            const operation = document.getElementById("operation").value;
+
+            //Sends a request to the server, updates the UI with the result, and  also handles errors if occur .
+            fetch(`http://localhost:3040/calculate?num1=${num1}&num2=${num2}&operation=${operation}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result !== undefined) {
+                        document.getElementById("result").innerText = data.result;
+                    } else {
+                        document.getElementById("result").innerText = "Error!";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("result").innerText = "Error!";
+                });
+        }
+    </script>
+</body>
+</html>
